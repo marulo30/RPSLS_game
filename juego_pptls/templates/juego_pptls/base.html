@@ -1,0 +1,53 @@
+  
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{% static 'css/game.css' %}"> {% block additional_head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand">Piedra, Papel, Tijera, Lagarto o Spock?</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                          <a class="nav-link" href="/lobby/">Lobby</a></li>
+                        <li class="nav-item">
+                          ><a class="nav-link" href="/logout/">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item">
+                          ><a class="nav-link" href="/register/">Register</a></li>
+                        <li class="nav-item">
+                          ><a class="nav-link" href="/login/">Login</a></li>
+                    {% endif %}
+                </ul>
+                {% if request.user.is_authenticated %}
+                <p class="navbar-text pull-right">Hi, {{ request.user }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="margin-bottom:50px;">
+        {% if messages %} 
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %} 
+        {% endif %}
+        <!-- MAIN PAGE CONTENT -->
+        {% block main_content %}{% endblock %}
+    </div>
+    <!-- PAGE LEVEL JAVASCRIPT -->
+    {% block page_javascript %} {% endblock %}
+ 
+</body>
+</html>

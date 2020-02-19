@@ -1,0 +1,29 @@
+{% extends 'juego_pptls/base.html' %}
+{% load staticfiles %}
+
+
+{% block main_content %}
+<form action="/juego/" method="POST">
+{% csrf_token %}
+<p>Eligue uno:</p>
+<div>
+	<input type="radio" id="piedra" name="opcion" value="piedra" checked="checked">
+	<label for="piedra">PIEDRA</label><br>
+	<input type="radio" id="papel" name="opcion" value="papel">
+	<label for="papel">PAPEL</label><br>
+	<input type="radio" id="tijeras" name="opcion" value="tijeras">
+	<label for="s">TIJERAS</label><br>
+	<input type="radio" id="lagarto" name="opcion" value="lagarto">
+	<label for="lagarto">LAGARTO</label><br>
+	<input type="radio" id="spock" name="opcion" value="spock">
+	<label for="spock">SPOCK</label><br>
+	<input type="submit" value="Elegir">
+</div>
+</form>
+
+{% if resultado %}
+<p>{{ resultado}}</p>
+{% endif %}
+
+{% endblock %}
+
