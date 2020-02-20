@@ -15,8 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from juego_pptls.views import *
+from django.contrib.auth.views import login, logout
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^registro/', CreateUserView.as_view()),
+    url(r'^login/$', login, {'template_name': 'juego_pptls/login.html'}),
+    url(r'^logout/$', logout, {'next_page': '/'}),
+    url(r'^$', HomeView.as_view()),
+
     url(r'^juego/', include('juego_pptls.urls'))
 ]
